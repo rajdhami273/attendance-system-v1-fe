@@ -1,0 +1,31 @@
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-body">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-align-justify"></i> Choose Subject
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Subjects</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let s of subjects; let i = index;">
+                  <td><a [routerLink]="['/attendance', classId, s._id]">{{s.subjectName}}</a></td>
+                  <td>
+                    <!-- <span class="badge badge-success">Active</span> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

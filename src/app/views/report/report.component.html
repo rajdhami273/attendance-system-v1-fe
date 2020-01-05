@@ -1,0 +1,115 @@
+<div class="col-lg-12">
+  <div class="card">
+    <div class="card-header"><i class="fa fa-align-justify"></i> Report</div>
+    <div class="card-body">
+      <form [formGroup]="reportForm">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="select1">Class</label>
+              <select
+                id="select1"
+                name="select1"
+                class="form-control"
+                formControlName="classId"
+              >
+                <option value="" disabled>Select class</option>
+                <option
+                  value="{{ c._id }}"
+                  *ngFor="let c of class; let i = index"
+                  >{{ c.className }}</option
+                >
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="date-input">From</label>
+              <input
+                class="form-control"
+                id="date-input"
+                type="date"
+                name="date-input"
+                placeholder="date"
+                formControlName="startDate"
+              />
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="date-input">To</label>
+              <input
+                class="form-control"
+                id="date-input"
+                type="date"
+                name="date-input"
+                placeholder="date"
+                formControlName="endDate"
+              />
+            </div>
+          </div>
+          <div class="col-sm-3 align-items-end">
+            <div class="row">
+              <div class="col-sm-6">
+                <label>&nbsp;</label><br />
+                <button
+                  class="btn btn-inverse btn-primary btn-sm align-items-end"
+                  (click)="getReport(reportForm)"
+                  [disabled]="gettingReports"
+                >
+                  {{gettingReports ? 'Please wait...' : 'Get Report'}}
+                </button>
+              </div>
+              <div class="col-sm-6" *ngIf="downloadUrl">
+                <label>&nbsp;</label><br />
+                <button
+                  class="btn btn-inverse btn-primary btn-sm align-items-end"
+                  (click)="downloadReport()"
+                >
+                  Download
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="table-responsive">
+        <table class="table table-striped" *ngIf="report.length > 0">
+          <thead>
+            <tr>
+              <th>Roll No.</th>
+              <th>Student Name</th>
+              <th *ngFor="let s of subjects; let i = index">
+                {{ s.subjectName }}
+              </th>
+              <th>%</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let r of report; let i = index">
+              <td>{{ r.rollNo }}</td>
+              <td>{{ r.studentName }}</td>
+              <td *ngFor="let s of r.classDetails; let i = index">
+                {{ s.noOfLecturesPresent }}/{{ s.noOfLecturesTotal }}
+              </td>
+              <td>
+                {{ getPercent(r.totalLecturesPresent, r.totalLectures) }}%
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+          <li class="page-item active">
+            <a class="page-link" href="#">1</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">4</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul> -->
+    </div>
+  </div>
+</div>

@@ -1,13 +1,22 @@
-import {Component } from '@angular/core';
-import { navItems } from '../../_nav';
+import { Component } from "@angular/core";
+import { navItems } from "../../_nav";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './default-layout.component.html'
+  selector: "app-dashboard",
+  templateUrl: "./default-layout.component.html"
 })
 export class DefaultLayoutComponent {
   public sidebarMinimized = false;
-  public navItems = navItems;
+  public navItems = navItems.filter((item, index) => {
+    if (index === 1) {
+      if (localStorage.getItem("admin") === "true") {
+        return item;
+      }
+      return null;
+    } else {
+      return item;
+    }
+  });
 
   toggleMinimize(e) {
     this.sidebarMinimized = e;
